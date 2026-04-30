@@ -248,9 +248,63 @@
   /* ══ FOOTER ══ */
   .app-footer { padding: 16px 32px; background: var(--paper-2); border-top: 1px solid var(--line); text-align: center; }
   .app-footer span { font-size: 11px; color: var(--ink-4); }
+
+  /* ══ CLIENT-SIDE PASSWORD GATE (GitHub Pages cannot enforce server-side auth) ══ */
+  body.auth-pending { overflow: hidden; }
+  .auth-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background: linear-gradient(155deg, var(--ink) 0%, #12122a 45%, #1a1a40 100%);
+  }
+  .auth-gate[hidden] { display: none !important; }
+  .auth-card {
+    width: 100%; max-width: 400px;
+    background: var(--surface); border-radius: 16px;
+    padding: 28px 28px 22px;
+    box-shadow: 0 24px 56px rgba(0,0,0,0.4);
+    border: 1px solid var(--line);
+  }
+  .auth-brand { margin-bottom: 20px; }
+  .auth-title { font-size: 18px; font-weight: 600; color: var(--ink); }
+  .auth-subtitle { font-size: 12px; color: var(--ink-3); margin-top: 6px; line-height: 1.45; }
+  .auth-label { display: block; font-size: 11px; font-weight: 600; color: var(--ink-3); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .auth-input {
+    width: 100%; padding: 12px 14px; font-size: 14px; font-family: var(--font-sans);
+    border: 1px solid var(--line-2); border-radius: 8px; background: var(--paper);
+    color: var(--ink);
+  }
+  .auth-input:focus { outline: none; border-color: var(--indigo); box-shadow: 0 0 0 3px var(--indigo-100); }
+  .auth-error { min-height: 20px; margin-top: 8px; font-size: 12px; color: var(--error); font-weight: 500; }
+  .auth-btn {
+    width: 100%; margin-top: 14px; padding: 12px 16px; font-size: 13px; font-weight: 600;
+    font-family: var(--font-sans); color: white; background: var(--indigo); border: none;
+    border-radius: 8px; cursor: pointer;
+  }
+  .auth-btn:hover { background: var(--indigo-700); }
+  .auth-note { margin-top: 16px; font-size: 10px; color: var(--ink-4); line-height: 1.45; }
 </style>
 </head>
-<body>
+<body class="auth-pending">
+
+<div id="auth-gate" class="auth-gate" role="dialog" aria-labelledby="auth-title">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="app-logo" style="width:36px;height:36px;font-size:15px;">S</div>
+      <div id="auth-title" class="auth-title">NAM CMS 2.0 — Discovery Pack</div>
+      <p class="auth-subtitle">Enter the shared password to view this page.</p>
+    </div>
+    <form id="auth-form">
+      <label class="auth-label" for="auth-password">Password</label>
+      <input type="password" id="auth-password" name="password" class="auth-input" required autocomplete="current-password" />
+      <p id="auth-error" class="auth-error" role="alert"></p>
+      <button type="submit" class="auth-btn">Unlock</button>
+      <p class="auth-note">This check runs in the browser only. Anyone can inspect the page source or bypass it with enough effort. For real secrecy, use a private repo + invited viewers or host behind login (e.g. Cloudflare Access).</p>
+    </form>
+  </div>
+</div>
+
+<div id="site-root" hidden>
 
 <!-- ══ HEADER ══ -->
 <div class="app-header">
@@ -688,10 +742,54 @@
   <span>Symphony © 2026 · NAM CMS 2.0 Discovery Pack · Based on TheyDo export, CMS 2 capability doc, requirements workshop transcripts (37 sessions), storyboards, and Slack</span>
 </div>
 
+</div><!-- #site-root -->
+
 <script>
+(function () {
+  /* Change password: replace SHA-256 hex of your new passphrase (echo -n 'YourPass' | shasum -a 256) */
+  var PASSWORD_HASH_HEX = 'c5e52e9a59c873f994a695e2105d66c9fc41c7ce623aaa755db69685edff4118';
+  var STORAGE_KEY = 'nam_discovery_auth_v1';
+
+  function sha256Hex(text) {
+    var buf = new TextEncoder().encode(text);
+    return crypto.subtle.digest('SHA-256', buf).then(function (hash) {
+      return Array.from(new Uint8Array(hash)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    });
+  }
+
+  function revealSite() {
+    document.getElementById('auth-gate').hidden = true;
+    document.getElementById('site-root').hidden = false;
+    document.body.classList.remove('auth-pending');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+      revealSite();
+      return;
+    }
+    var form = document.getElementById('auth-form');
+    var input = document.getElementById('auth-password');
+    var err = document.getElementById('auth-error');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      err.textContent = '';
+      sha256Hex(input.value).then(function (h) {
+        if (h === PASSWORD_HASH_HEX) {
+          sessionStorage.setItem(STORAGE_KEY, '1');
+          input.value = '';
+          revealSite();
+        } else {
+          err.textContent = 'Incorrect password.';
+        }
+      });
+    });
+  });
+})();
+
 function showTab(id, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
 }
