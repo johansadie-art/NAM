@@ -36,6 +36,12 @@ git remote set-url origin git@github.com:johansadie-art/NAM.git
 git push -u origin main
 ```
 
+### Cursor / VS Code — GitHub extension
+
+This workspace recommends **GitHub Pull Requests and Issues** (`.vscode/extensions.json`). When Cursor prompts to install **recommended extensions**, accept it—or install manually: extension ID `GitHub.vscode-pull-request-github`.
+
+Sign in via the **Accounts** menu or Command Palette → **GitHub Pull Requests: Sign in**. Then use the **Source Control** view to **Sync / Push**, or the command **Publish Branch** if the remote branch is not on GitHub yet.
+
 ### Enable Pages
 
 1. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
