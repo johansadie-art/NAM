@@ -2,33 +2,45 @@
 
 Clickable HTML/React prototypes for Case Manager, Neutrals Portal, and Client Portal. Open the **hub** first, then pick a portal.
 
+## Repository
+
+**GitHub:** [github.com/johansadie-art/NAM](https://github.com/johansadie-art/NAM)
+
 ## View on GitHub Pages
 
-After this repo is connected to GitHub Pages (see below), the site URL will be:
+Published site (after Actions deploy succeeds):
 
-`https://<your-username>.github.io/<repository-name>/`
+**https://johansadie-art.github.io/NAM/index.html**
 
-Start at **`/index.html`** (the hub). These prototypes load JSX via **HTTPS** and `fetch`; use the published URL, not raw `file://` paths.
+Start at the hub (`index.html`). These prototypes load JSX via **HTTPS** and `fetch`; use the published URL, not raw `file://` paths.
 
-## Publish from your machine
+## Publish / push updates
 
-1. Create a new repository on GitHub (empty, no README required).
-2. In this folder:
+The local repo is configured with:
 
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: NAM prototypes"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/<your-repo>.git
-   git push -u origin main
-   ```
+`origin` → `https://github.com/johansadie-art/NAM.git`
 
-3. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+**First-time:** create the empty **`NAM`** repository under **`johansadie-art`** on GitHub if it does not exist yet.
 
-4. Open the **Actions** tab and confirm the **Deploy GitHub Pages** workflow succeeds. The workflow uses `.github/workflows/deploy-pages.yml`.
+Then from this folder on your Mac (sign in when prompted, or use SSH):
 
-5. After deployment, visit **`https://<your-username>.github.io/<repository-name>/index.html`**.
+```bash
+cd "/path/to/Prototypes"
+git push -u origin main
+```
+
+To use **SSH** instead of HTTPS:
+
+```bash
+git remote set-url origin git@github.com:johansadie-art/NAM.git
+git push -u origin main
+```
+
+### Enable Pages
+
+1. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Open the **Actions** tab and confirm **Deploy GitHub Pages** succeeds.
+3. Share **https://johansadie-art.github.io/NAM/index.html**.
 
 ### Notes
 
