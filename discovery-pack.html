@@ -248,63 +248,9 @@
   /* ══ FOOTER ══ */
   .app-footer { padding: 16px 32px; background: var(--paper-2); border-top: 1px solid var(--line); text-align: center; }
   .app-footer span { font-size: 11px; color: var(--ink-4); }
-
-  /* ══ CLIENT-SIDE PASSWORD GATE (GitHub Pages cannot enforce server-side auth) ══ */
-  body.auth-pending { overflow: hidden; }
-  .auth-gate {
-    position: fixed; inset: 0; z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-    background: linear-gradient(155deg, var(--ink) 0%, #12122a 45%, #1a1a40 100%);
-  }
-  .auth-gate[hidden] { display: none !important; }
-  .auth-card {
-    width: 100%; max-width: 400px;
-    background: var(--surface); border-radius: 16px;
-    padding: 28px 28px 22px;
-    box-shadow: 0 24px 56px rgba(0,0,0,0.4);
-    border: 1px solid var(--line);
-  }
-  .auth-brand { margin-bottom: 20px; }
-  .auth-title { font-size: 18px; font-weight: 600; color: var(--ink); }
-  .auth-subtitle { font-size: 12px; color: var(--ink-3); margin-top: 6px; line-height: 1.45; }
-  .auth-label { display: block; font-size: 11px; font-weight: 600; color: var(--ink-3); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .auth-input {
-    width: 100%; padding: 12px 14px; font-size: 14px; font-family: var(--font-sans);
-    border: 1px solid var(--line-2); border-radius: 8px; background: var(--paper);
-    color: var(--ink);
-  }
-  .auth-input:focus { outline: none; border-color: var(--indigo); box-shadow: 0 0 0 3px var(--indigo-100); }
-  .auth-error { min-height: 20px; margin-top: 8px; font-size: 12px; color: var(--error); font-weight: 500; }
-  .auth-btn {
-    width: 100%; margin-top: 14px; padding: 12px 16px; font-size: 13px; font-weight: 600;
-    font-family: var(--font-sans); color: white; background: var(--indigo); border: none;
-    border-radius: 8px; cursor: pointer;
-  }
-  .auth-btn:hover { background: var(--indigo-700); }
-  .auth-note { margin-top: 16px; font-size: 10px; color: var(--ink-4); line-height: 1.45; }
 </style>
 </head>
-<body class="auth-pending">
-
-<div id="auth-gate" class="auth-gate" role="dialog" aria-labelledby="auth-title">
-  <div class="auth-card">
-    <div class="auth-brand">
-      <div class="app-logo" style="width:36px;height:36px;font-size:15px;">S</div>
-      <div id="auth-title" class="auth-title">NAM CMS 2.0 — Discovery Pack</div>
-      <p class="auth-subtitle">Enter the shared password to view this page.</p>
-    </div>
-    <form id="auth-form">
-      <label class="auth-label" for="auth-password">Password</label>
-      <input type="password" id="auth-password" name="password" class="auth-input" required autocomplete="current-password" />
-      <p id="auth-error" class="auth-error" role="alert"></p>
-      <button type="submit" class="auth-btn">Unlock</button>
-      <p class="auth-note">This check runs in the browser only. Anyone can inspect the page source or bypass it with enough effort. For real secrecy, use a private repo + invited viewers or host behind login (e.g. Cloudflare Access).</p>
-    </form>
-  </div>
-</div>
-
-<div id="site-root" hidden>
+<body>
 
 <!-- ══ HEADER ══ -->
 <div class="app-header">
@@ -327,9 +273,7 @@
   <button class="tab-btn" onclick="showTab('matrix', this)">
     <span class="tab-num">3</span> Journey × Persona Matrix
   </button>
-  <button class="tab-btn" onclick="showTab('priority', this)">
-    <span class="tab-num">4</span> Priority Recommendations
-  </button>
+
 </div>
 
 <!-- ══════════════════════════════════════
@@ -375,7 +319,7 @@
     <div class="phase-header"><div class="phase-num">Phase 2</div><div class="phase-name">Case Setup & DRA</div><div class="phase-steps"><span class="phase-step">DRA generation</span><span class="phase-step">DocuSign</span><span class="phase-step">Status tracking</span></div></div>
     <div class="phase-header"><div class="phase-num">Phase 3</div><div class="phase-name">Neutral Selection</div><div class="phase-steps"><span class="phase-step">Roster review</span><span class="phase-step">Conflict check</span><span class="phase-step">Appointment</span></div></div>
     <div class="phase-header"><div class="phase-num">Phase 4</div><div class="phase-name">Scheduling & Hearings</div><div class="phase-steps"><span class="phase-step">Pre-hearing</span><span class="phase-step">Scheduling</span><span class="phase-step">Zoom / In-person</span></div></div>
-    <div class="phase-header"><div class="phase-num">Phase 5</div><div class="phase-name">Document Management</div><div class="phase-steps"><span class="phase-step">Upload</span><span class="phase-step">Share</span><span class="phase-step">e-Sign</span></div></div>
+    <div class="phase-header"><div class="phase-num">Phase 5</div><div class="phase-name">Hearing & Outcome</div><div class="phase-steps"><span class="phase-step">Pre-hearing</span><span class="phase-step">Hearing day</span><span class="phase-step">Decision / PMA</span></div></div>
     <div class="phase-header"><div class="phase-num">Phase 6</div><div class="phase-name">Financial Processing</div><div class="phase-steps"><span class="phase-step">Invoicing</span><span class="phase-step">Payments</span><span class="phase-step">Neutral pay</span><span class="phase-step">Reconciliation</span></div></div>
     <div class="phase-header"><div class="phase-num">Phase 7</div><div class="phase-name">Reporting & Close</div><div class="phase-steps"><span class="phase-step">Case close</span><span class="phase-step">Reports</span><span class="phase-step">Audit trail</span></div></div>
 
@@ -386,7 +330,7 @@
     <div class="cell actor-client"><div class="action">Receives case number + status confirmation</div><div class="action">Signs DRA via DocuSign (voluntary cases)</div><div class="card card-need"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Automated DocuSign reminders</span><span class="card-score" style="color:var(--indigo)">0.07</span></div></div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Some neutrals refuse digital signatures</span><span class="card-score">0.12</span></div></div></div>
     <div class="cell actor-client muted"><div class="action">Reviews proposed neutrals (commercial only)</div><div class="action">Accepts or strikes from roster</div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Neutral selection precedes scheduling in commercial cases</span></div></div></div>
     <div class="cell actor-client"><div class="action">Receives hearing date + Zoom / location details</div><div class="action">Requests pre-hearing conference via portal</div><div class="action">Attends hearing</div><div class="card card-need"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Consolidated calendar view of case events</span><span class="card-score" style="color:var(--indigo)">0.15</span></div></div></div>
-    <div class="cell actor-client"><div class="action">Uploads case documents</div><div class="action">Accesses shared documents from NAM</div><div class="action">Submits prehearing materials via link</div><div class="card card-need"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Link to upload prehearing submissions</span><span class="card-score" style="color:var(--indigo)">0.08</span></div></div></div>
+    <div class="cell actor-client"><div class="action">Attends hearing — Zoom or in-person</div><div class="action">Participates in pre-hearing conference</div><div class="action">Receives decision / award / PMA</div><div class="action">Confirms settlement if applicable</div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Decision shared only after payment (arbitration)</span></div></div></div>
     <div class="cell actor-client"><div class="action">Views invoices online</div><div class="action">Pays via portal (ACH / card)</div><div class="action">Receives decision after payment (arbitration)</div><div class="card card-gain"><div class="card-header"><span class="card-type">Gain</span><span class="card-title">Automated fee collection & payment</span><span class="card-score" style="color:var(--success)">0.02</span></div></div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Decision shared only after payment</span></div></div></div>
     <div class="cell actor-client muted"><div class="action">Receives case closure notification</div><div class="action">Accesses final decision / settlement documents</div></div>
 
@@ -395,7 +339,7 @@
     <div class="cell actor-client"><div class="touchpoint"><span class="tp-icon">✍️</span> DocuSign</div><div class="touchpoint"><span class="tp-icon">📧</span> Email</div></div>
     <div class="cell actor-client muted"><div class="touchpoint"><span class="tp-icon">💻</span> Client Portal</div><div class="touchpoint"><span class="tp-icon">📧</span> Email</div></div>
     <div class="cell actor-client"><div class="touchpoint"><span class="tp-icon">📅</span> Calendar invite</div><div class="touchpoint"><span class="tp-icon">🎥</span> Zoom</div><div class="touchpoint"><span class="tp-icon">💻</span> Client Portal</div></div>
-    <div class="cell actor-client"><div class="touchpoint"><span class="tp-icon">💻</span> Client Portal</div><div class="touchpoint"><span class="tp-icon">✍️</span> DocuSign</div></div>
+    <div class="cell actor-client"><div class="touchpoint"><span class="tp-icon">🎥</span> Zoom</div><div class="touchpoint"><span class="tp-icon">📍</span> In-person venue</div><div class="touchpoint"><span class="tp-icon">📧</span> Email (decision)</div></div>
     <div class="cell actor-client"><div class="touchpoint"><span class="tp-icon">💻</span> Client Portal</div><div class="touchpoint"><span class="tp-icon">💳</span> Authorize.Net</div><div class="touchpoint"><span class="tp-icon">📧</span> Email / eFax</div></div>
     <div class="cell actor-client muted"><div class="touchpoint"><span class="tp-icon">📧</span> Email</div><div class="touchpoint"><span class="tp-icon">💻</span> Client Portal</div></div>
 
@@ -415,7 +359,7 @@
     <div class="cell actor-internal muted"><div class="action">Status transitions enforced by system rules</div><div class="action">Custom stipulation rules applied by organisation</div><div class="action">Configurable workflows (low-code)</div><div class="card card-need"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Role-based access & permission matrix</span><span class="card-score" style="color:var(--indigo)">⚠ 2.37</span></div></div></div>
     <div class="cell actor-internal muted"><div class="action">Conflict check queries historical case data</div><div class="action">Neutral profile lookup (availability, rates, qualifications)</div></div>
     <div class="cell actor-internal muted"><div class="action">Automated calendar / Zoom link generation</div><div class="action">Billable vs. non-billable hearing flagging</div><div class="action">Batch hearing linked to multiple cases (mass filing)</div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Automated handling of continued cases & hearing times</span><span class="card-score">0.98</span></div></div></div>
-    <div class="cell actor-internal muted"><div class="action">Document version control</div><div class="action">Role-based document access enforcement</div><div class="action">Automated note creation for system actions</div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Automated note creation for system-generated actions</span><span class="card-score">0.12</span></div></div></div>
+    <div class="cell actor-internal muted"><div class="action">Status auto-transitions to HEARD on session close</div><div class="action">Revenue recognition triggered on hearing date</div><div class="action">Neutral payment queued in payables run</div><div class="action">Billable time calculated and allocated across cases</div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Revenue recognised on hearing date — not case close date</span></div></div></div>
     <div class="cell actor-internal muted"><div class="action">Revenue recognised on hearing date (not close)</div><div class="action">Neutral minimum applied at hearing level (not case level)</div><div class="action">Time split proportionally across batched cases</div><div class="card card-pain"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">Difficulty ensuring accurate journal entries</span><span class="card-score" style="color:var(--error)">0.23</span></div></div></div>
     <div class="cell actor-internal muted"><div class="action">Immutable audit trail of all user actions</div><div class="action">Status change logged with timestamp + user</div><div class="action">Unused reports flagged for removal</div></div>
 
@@ -424,7 +368,7 @@
     <div class="cell actor-internal muted"><div class="sys-tag">DocuSign</div><div class="sys-tag">CMS 2.0</div><div class="sys-tag">Email / eFax</div></div>
     <div class="cell actor-internal muted"><div class="sys-tag">CMS 2.0</div><div class="sys-tag">Neutral DB</div></div>
     <div class="cell actor-internal muted"><div class="sys-tag">CMS 2.0</div><div class="sys-tag">Zoom</div><div class="sys-tag">Google Calendar</div></div>
-    <div class="cell actor-internal muted"><div class="sys-tag">CMS 2.0</div><div class="sys-tag">DocuSign</div><div class="sys-tag">SharePoint / Azure Blob</div></div>
+    <div class="cell actor-internal muted"><div class="sys-tag">CMS 2.0</div><div class="sys-tag">Zoom</div><div class="sys-tag">DocuSign (PMA/award)</div></div>
     <div class="cell actor-internal muted"><div class="sys-tag">CMS 2.0</div><div class="sys-tag">Authorize.Net</div><div class="sys-tag">Acumatica ERP</div><div class="sys-tag">eFax</div></div>
     <div class="cell actor-internal muted"><div class="sys-tag">CMS 2.0</div><div class="sys-tag">Reporting module</div><div class="sys-tag">Acumatica</div></div>
 
@@ -434,7 +378,7 @@
     <div class="cell actor-neutral muted"><div class="action" style="color:var(--ink-4);font-style:italic;">Not yet involved</div></div>
     <div class="cell actor-neutral muted"><div class="action" style="color:var(--ink-4);font-style:italic;">Not yet involved</div></div>
     <div class="cell actor-neutral"><div class="action">Reviews conflict disclosure from NAM</div><div class="action">Accepts or discloses conflict</div><div class="action">Receives case rules on appointment</div><div class="action">Receives progressively signed DRA copy</div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Neutral signs document last in process</span></div></div></div>
-    <div class="cell actor-neutral"><div class="action">Sets availability in Neutrals Portal</div><div class="action">Reviews pre-hearing submissions</div><div class="action">Conducts hearing (Zoom / in-person)</div><div class="action">Closes session</div><div class="card card-pain"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">System issues disrupting neutral operations</span><span class="card-score" style="color:var(--error)">0.87</span></div></div></div>
+    <div class="cell actor-neutral"><div class="action">Sets availability in Neutrals Portal</div><div class="action">Reviews pre-hearing submissions</div><div class="action">Coordinates with parties on scheduling preferences</div><div class="card card-pain"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">System issues disrupting neutral operations</span><span class="card-score" style="color:var(--error)">0.87</span></div></div></div>
     <div class="cell actor-neutral"><div class="action">Accesses shared documents via Neutrals Portal</div><div class="action">Submits decision / award document</div><div class="action">Submits timesheet</div><div class="card card-need"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Detailed time & task breakdown for neutrals</span><span class="card-score" style="color:var(--indigo)">0.06</span></div></div></div>
     <div class="cell actor-neutral"><div class="action">Receives payment statement at month-end</div><div class="action">Reviews compensation breakdown</div><div class="card card-need"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Track neutral rates & payments over time</span><span class="card-score" style="color:var(--indigo)">0.07</span></div></div><div class="card card-obs"><div class="card-header"><span class="card-type">Obs</span><span class="card-title">Neutrals paid at month-end of case closure</span></div></div></div>
     <div class="cell actor-neutral muted"><div class="action" style="color:var(--ink-4);font-style:italic;">Not directly involved</div></div>
@@ -443,7 +387,7 @@
     <div class="cell actor-neutral muted"></div><div class="cell actor-neutral muted"></div>
     <div class="cell actor-neutral"><div class="touchpoint"><span class="tp-icon">📧</span> Email</div><div class="touchpoint"><span class="tp-icon">💻</span> Neutrals Portal</div></div>
     <div class="cell actor-neutral"><div class="touchpoint"><span class="tp-icon">💻</span> Neutrals Portal</div><div class="touchpoint"><span class="tp-icon">🎥</span> Zoom</div></div>
-    <div class="cell actor-neutral"><div class="touchpoint"><span class="tp-icon">💻</span> Neutrals Portal</div><div class="touchpoint"><span class="tp-icon">✍️</span> DocuSign</div></div>
+    <div class="cell actor-neutral"><div class="touchpoint"><span class="tp-icon">🎥</span> Zoom</div><div class="touchpoint"><span class="tp-icon">💻</span> Neutrals Portal</div><div class="touchpoint"><span class="tp-icon">✍️</span> DocuSign (PMA)</div></div>
     <div class="cell actor-neutral"><div class="touchpoint"><span class="tp-icon">💻</span> Neutrals Portal</div><div class="touchpoint"><span class="tp-icon">📧</span> Email</div></div>
     <div class="cell actor-neutral muted"></div>
 
@@ -451,17 +395,90 @@
     <div class="cell actor-neutral muted"></div><div class="cell actor-neutral muted"></div>
     <div class="cell actor-neutral muted"><div class="sys-tag">Neutrals Portal 2.0</div><div class="sys-tag">CMS 2.0 (sync)</div></div>
     <div class="cell actor-neutral muted"><div class="sys-tag">Neutrals Portal 2.0</div><div class="sys-tag">Zoom</div></div>
-    <div class="cell actor-neutral muted"><div class="sys-tag">Neutrals Portal 2.0</div><div class="sys-tag">DocuSign</div></div>
+    <div class="cell actor-neutral muted"><div class="sys-tag">Neutrals Portal 2.0</div><div class="sys-tag">Zoom</div><div class="sys-tag">DocuSign</div></div>
     <div class="cell actor-neutral muted"><div class="sys-tag">Neutrals Portal 2.0</div><div class="sys-tag">Acumatica</div></div>
     <div class="cell actor-neutral muted"></div>
+
+
+    <!-- DOCUMENT MANAGEMENT — Cross-Cutting Capability -->
+    <div class="bp-section-header" style="background:var(--indigo-900);color:var(--indigo-200);border-color:var(--indigo);">📄 Document Management — Cross-Cutting Capability (active across all phases)</div>
+    <div class="row-label" style="background:var(--indigo-900);border-left:3px solid var(--indigo-200);">
+      <div class="row-label-name" style="color:var(--indigo-200);">Documents at each phase</div>
+      <div class="row-label-desc" style="color:var(--ink-4);">Source: T11 — fragmented across all areas</div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Proof of service</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Demand form / contract</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Fee waiver documents</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Bulk submission files</div>
+      <div class="card card-pain" style="margin-top:4px;"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">Currently via email / fax / physical mail</span></div></div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">DRA generated → DocuSign</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Custom stipulations applied</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Signed agreement archived</div>
+      <div class="card card-pain" style="margin-top:4px;"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">Visual inspection for alterations is manual</span></div></div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Conflict disclosure docs</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Neutral bios (from system)</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Roster letters → Word → sent externally</div>
+      <div class="card card-pain" style="margin-top:4px;"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">Roster letters built in Word outside the system</span></div></div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Pre-hearing submission link</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Zoom confirmation letter</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Scheduling confirmation to all parties</div>
+      <div class="card card-pain" style="margin-top:4px;"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">Confirmations sent one party at a time (10-15 party cases)</span></div></div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Pre-hearing briefs (secure access)</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Decision / award document</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">PMA (Post-Mediation Agreement)</div>
+      <div class="card card-need" style="margin-top:4px;"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Secure doc sharing — email is a major security risk</span></div></div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Invoices (PDF + eBilling)</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Payment receipts</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Neutral payment statements</div>
+      <div class="card card-pain" style="margin-top:4px;"><div class="card-header"><span class="card-type">Pain</span><span class="card-title">Billing PDFs combined manually; portal statements pushed one at a time</span></div></div>
+    </div>
+    <div class="cell" style="background:var(--indigo-900);border-color:#2D2B7A;">
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Audit trail export</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Client status reports</div>
+      <div class="action" style="background:#1B1A66;border-color:#2D2B7A;color:var(--indigo-200);">Case closure documentation</div>
+      <div class="card card-need" style="margin-top:4px;"><div class="card-header"><span class="card-type">Need</span><span class="card-title">Central document storage linked to case events — not spread across drives</span></div></div>
+    </div>
 
   </div><!-- /.blueprint -->
   </div><!-- /.blueprint-wrapper -->
 
+  <!-- Day in the Life findings -->
+  <div style="padding:32px;background:var(--indigo-50);border-top:2px solid var(--indigo-200);">
+    <div style="max-width:960px;margin:0 auto;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--indigo-700);margin-bottom:4px;display:flex;align-items:center;gap:8px;"><div style="width:3px;height:14px;background:var(--indigo);border-radius:2px;"></div>Day-in-the-Life — 12 Cross-Cutting Themes</div>
+      <div style="font-size:11px;color:var(--ink-3);margin-bottom:16px;">Source: 60 recordings · 17h 24m · Commercial, Finance, Marketing, Personal Injury, Scheduling & Ops</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T1 — Email & phone are the integration layer</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Outlook/Gmail used as source of truth for case context, handoffs, client comms, scheduling requests, invoices, and follow-up across all functional areas.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T2 — Swivel-chair verification dominates knowledge work</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Every topic shows users toggling between 2-6 systems to validate the same case, party, invoice, rate, calendar, or document data.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T3 — Batch work performed one row at a time</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Scheduling confirmations, judge availability entries, eBilling sends, portal statement pushes, conflict-check searches — all through single-item interactions.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T4 — Diaries, inboxes & spreadsheets substitute for task management</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Commercial uses diaries as primary task queue. Finance prints deleted-invoice pages for follow-up. Teams use inbox folders or spreadsheets to track unresolved work.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T5 — Business rules live in people's heads</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">CA simultaneous invoice send, $0/negative deletion, express-rate-discount admin-fee logic, special PI rates, full-day fee handling, PI roster caps, bifurcated neutral rates.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T6 — Search/list views hide decision-critical fields</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Marketing can't see rates, city, case type, deactivation, or roster eligibility. Scheduling can't see day-of-week or date restrictions in grid views.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T7 — Data-model mismatches leak into daily work</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Pro se parties need duplicate firm/client records. Multi-state neutrals need duplicate profiles. Bifurcated rates live in notes. Prepaid ledgers need fee overrides.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T8 — Status transitions are manual compensating controls</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Users manually flip invoice, DRA, party, signed, waiting, confirmed, paid, and scanning statuses — then create diaries to verify someone else completed the next step.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T9 — Intake completeness drives downstream rework</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Missing respondent details, adjusters, claim numbers, office locations, wrong case types, duplicate submissions all create phone calls, eCourts lookups, rejections, and delayed invoices.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T10 — Performance & hard limits amplify manual toil</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">eBilling's 20-invoice cap, Scheduling's 3-hold limit, one-date availability entry, and slow 500+ case report exports increase the cost of already-repetitive workflows.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T11 — Document generation & storage are fragmented</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Commercial finds templates from prior cases and multiple drives. PI forwards agreements for scanning. Finance combines billing PDFs. Scheduling relies on generated confirmations.</div></div>
+        <div style="background:white;border-radius:8px;padding:12px;border:1px solid var(--indigo-100);"><div style="font-size:10px;font-weight:700;color:var(--indigo-700);margin-bottom:4px;">T12 — External authoritative systems manually consulted</div><div style="font-size:10px;color:var(--ink-3);line-height:1.5;">Marketing checks bar websites. PI checks NY State eCourts. Finance prepares Acumatica exports. Scheduling uses Outlook/Google/myADR calendars. All manual lookup, copy, and re-entry.</div></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Critical issues footer -->
   <div style="padding:32px;background:var(--surface);border-top:2px solid var(--line-2);">
     <div style="max-width:960px;margin:0 auto;">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-3);margin-bottom:16px;display:flex;align-items:center;gap:8px;"><div style="width:3px;height:14px;background:var(--error);border-radius:2px;"></div>Critical Issues — Highest Priority for Discovery Sessions</div>
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-3);margin-bottom:16px;display:flex;align-items:center;gap:8px;"><div style="width:3px;height:14px;background:var(--error);border-radius:2px;"></div>Critical Issues from May 4 Discovery Session</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
         <div class="card card-pain" style="padding:12px 14px;"><div class="card-header"><span class="card-type">Pain · Score 2.90</span></div><div class="card-title" style="font-size:13px;margin-top:4px;">Inaccurate Billing for Batch Hearings</div><div class="card-body" style="margin-top:4px;">One hearing covers many cases. Revenue allocation and neutral minimum payment enforcement is broken at the case level.</div><div style="font-size:10px;color:var(--ink-4);margin-top:6px;">Phase 6: Financial Processing</div></div>
         <div class="card card-need" style="padding:12px 14px;"><div class="card-header"><span class="card-type">Need · Score 2.37</span></div><div class="card-title" style="font-size:13px;margin-top:4px;">Role-Based Access & Permission Matrix</div><div class="card-body" style="margin-top:4px;">Every module needs granular RBAC. Page-level and field-level security. Dynamic access based on case/entity status.</div><div style="font-size:10px;color:var(--ink-4);margin-top:6px;">Phase 2 → All phases</div></div>
@@ -479,47 +496,124 @@
 ══════════════════════════════════════ -->
 <div class="tab-panel" id="tab-personas">
   <div class="inner-pad">
-    <div class="section-eyebrow">7 distinct actors across internal, external, and neutral roles</div>
+    <div class="section-eyebrow">9 role-based personas — sourced from 45 requirements sessions (2023), May 4 discovery session, and 60 day-in-the-life recordings. "Spoke to" lists who has been interviewed in each role — add names as more people are engaged.</div>
+
+
+
     <div class="personas-grid">
 
+      <!-- JASON -->
+      <div class="persona-card" style="border-top:3px solid #1B1A66;">
+        <div class="persona-header"><div class="persona-avatar" style="background:#E8E8FF;">🎯</div><div class="persona-meta"><div class="persona-name">Senior Business Owner</div><div class="persona-role">Strategic decision-maker — sets principles and holds final call when stakeholders disagree</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Jason <span style="color:var(--ink-4);font-size:10px;">(2023 requirements sessions)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:#1B1A66;">Decision</div><div class="persona-stat-lbl">Maker</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:#1B1A66;">Strategic</div><div class="persona-stat-lbl">Altitude</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">High</div><div class="persona-stat-lbl">Influence</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Frames build-vs-buy decisions. Sets the principle that CMS 2.0 must not replicate CMS 1.0 workarounds. Weighs in on whether features earn their place. Frequently asks "are we sure we need this?" When Jason concedes a point, it tends to stick — he is the deciding voice when NAM SMEs disagree.</div></div>
+        <div><div class="persona-section-title">Distinctive positions</div><div class="tag-list"><span class="tag need">No system-imposed bulk limits</span><span class="tag need">Configurable commissions engine</span><span class="tag need">Three-folder document model</span><span class="tag need">No hardcoded workarounds in 2.0</span></div></div>
+        <div><div class="persona-section-title">Why critical for sessions</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">The NAM business owner equivalent to Shaun Cutter on the product side. Getting alignment with Jason on MVP scope and phasing is as important as getting it from the CTO.</div></div>
+        <div class="quote">"Be careful not to take too much information about what it does — some of what it does today is to work around limitations of the current platform that must not exist on the new platform."</div>
+      </div>
+
+      <!-- JACKIE STRAFASIO -->
+
+      <!-- IT / TECHNICAL DIRECTOR -->
+      <div class="persona-card" style="border-top:3px solid #374151;">
+        <div class="persona-header"><div class="persona-avatar" style="background:#F3F4F6;">💻</div><div class="persona-meta"><div class="persona-name">IT / Technical Director</div><div class="persona-role">Owns the existing CMS architecture, data migration strategy, and system integrations</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Mike <span style="color:var(--ink-4);font-size:10px;">(May 4 discovery — confirmed as IT lead)</span> · Shaun Cutter (CTO) <span style="color:var(--ink-4);font-size:10px;">(May 4 discovery — session chair)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:#374151;">Tech</div><div class="persona-stat-lbl">Decisions</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:#374151;">Migration</div><div class="persona-stat-lbl">Risk owner</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">High</div><div class="persona-stat-lbl">Influence</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Owns the SQL database architecture going back to the 1990s. Manages the three-system estate (internal CMS, myADR, Neutrals Portal). Sets technical requirements for the new platform. Most critical input: the new system must run in parallel with CMS 1, remain in synchronisation, and allow slow migration. This is the risk that sank the previous vendor.</div></div>
+        <div><div class="persona-section-title">Critical position</div><div class="tag-list"><span class="tag need">Parallel systems running simultaneously</span><span class="tag need">Data sync during migration</span><span class="tag need">Real-time reporting</span><span class="tag need">10-15yr historical data access</span></div></div>
+        <div><div class="persona-section-title">Key point from session</div><div style="font-size:11px;color:var(--ink-3);line-height:1.5;background:var(--error-bg);padding:8px 10px;border-radius:6px;margin-top:6px;">⚠️ "Getting from the existing system to the next one is going to be huge. That's something that definitely bit us on the last initiative." — Mike, May 4</div></div>
+      </div>
+
+      <!-- COMMERCIAL CASE MANAGER -->      <div class="persona-card" style="border-top:3px solid var(--c-cm);">
+        <div class="persona-header"><div class="persona-avatar" style="background:#E0F2FE;">⚙️</div><div class="persona-meta"><div class="persona-name">Commercial Case Manager</div><div class="persona-role">Manages complex multi-party commercial arbitrations end-to-end — intake, party management, scheduling, invoicing</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Jackie Strafasio <span style="color:var(--ink-4);font-size:10px;">(2023 sessions · May 4 discovery)</span> · Jackie Selvi <span style="color:var(--ink-4);font-size:10px;">(2023 sessions)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-cm)">Daily</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--error)">High</div><div class="persona-stat-lbl">Pain level</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-cm)">High</div><div class="persona-stat-lbl">Confidence</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">The dominant operational voice across all 45 sessions. Manages case managers day-to-day on the PI/voluntary side. Speaks from lived experience — references specific neutrals, specific adjournment patterns, specific status edge cases. Sessions were rescheduled around her absence. When she's not in a session, decisions are deferred.</div></div>
+        <div><div class="persona-section-title">Owns these areas</div><div class="tag-list"><span class="tag need">Neutral selection process</span><span class="tag need">Adjournment & pre-hearing rules</span><span class="tag need">Party-vs-arbitrator interactions</span><span class="tag need">Status semantics (declined vs withdrawn)</span></div></div>
+        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">Hard-coded GEICO stipulation field</span><span class="tag pain">Status drop-down duplicates & dead values</span><span class="tag pain">Pre-hearing conferences not tracked</span><span class="tag pain">Configuring anything requires a developer</span></div></div>
+        <div class="quote">"I adjourn so many matters" — she owns the scheduling complexity more than anyone else in the room.</div>
+      </div>
+
+      <!-- JACKIE SELVI — merged into Commercial Case Manager persona above -->
+
+      <!-- SHARON -->
+      <div class="persona-card" style="border-top:3px solid var(--c-fin);">
+        <div class="persona-header"><div class="persona-avatar" style="background:var(--error-bg);">💰</div><div class="persona-meta"><div class="persona-name">Finance Operations</div><div class="persona-role">Day-to-day billing, invoicing, neutral compensation, reconciliation and month-end close</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Sharon <span style="color:var(--ink-4);font-size:10px;">(2023 sessions)</span> · Revenue Ops Manager <span style="color:var(--ink-4);font-size:10px;">(Day-in-the-Life, 11 recordings)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-fin)">Weekly</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--error)">Critical</div><div class="persona-stat-lbl">Pain level</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-fin)">High</div><div class="persona-stat-lbl">Confidence</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Owns the day-to-day finance workarounds. Has a "back door" toolkit of special routines to fix what the system gets wrong — these should not exist in CMS 2.0. Runs statement generation after hours because it crashes the system during business hours. Cuts email batches into groups of 20. Manually fixes MP (multiple-payment) duplicates every month. Tracks a "pick up from broken run" menu item as a normal step.</div></div>
+        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">Batch hearing billing inaccuracy (2.90)</span><span class="tag pain">Manual 3-report reconciliation</span><span class="tag pain">Statements crash system during business hours</span><span class="tag pain">20-record email batch limit</span><span class="tag pain">Monthly MP duplicate fixing in Excel</span><span class="tag pain">Revenue tracking on closed cases</span></div></div>
+        <div><div class="persona-section-title">Owns these integrations</div><div class="tag-list"><span class="tag need">Acumatica ERP</span><span class="tag need">ACH / Lockstep payments</span><span class="tag need">Refunds-payable workflow</span><span class="tag need">GL holding pen for overpayments</span></div></div>
+        <div class="quote">"I have to manually fix every month" — her day is structurally defined by working around the system.</div>
+      </div>
+
+      <!-- PAT -->
+      <div class="persona-card" style="border-top:3px solid #B91C1C;">
+        <div class="persona-header"><div class="persona-avatar" style="background:#FEE2E2;">📊</div><div class="persona-meta"><div class="persona-name">Finance Leadership / CFO</div><div class="persona-role">Finance strategy and policy — sets boundaries on what finance will change, final approval on scope</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Pat <span style="color:var(--ink-4);font-size:10px;">(2023 sessions)</span> · Scott (CFO) <span style="color:var(--ink-4);font-size:10px;">(May 4 discovery · dropped after 1hr)</span> · Director of Accounting <span style="color:var(--ink-4);font-size:10px;">(Day-in-the-Life)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:#B91C1C;">Finance</div><div class="persona-stat-lbl">Lead</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:#B91C1C;">Policy</div><div class="persona-stat-lbl">Altitude</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:#B91C1C;">High</div><div class="persona-stat-lbl">Confidence</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Sharon's senior or peer-manager. Speaks for finance as a function, not from inside a specific workflow. Called in to set boundaries on what finance is willing to change versus preserve. Named as the decision-maker for finance scope ("Pat, you'll know this better"). Final word on GL treatment, refunds, and reconciliation approach.</div></div>
+        <div><div class="persona-section-title">Owns these decisions</div><div class="tag-list"><span class="tag need">AE bonus / commissions from finance side</span><span class="tag need">GL treatment & refunds policy</span><span class="tag need">What finance will & won't change</span><span class="tag need">Payroll & end-of-month constraints</span></div></div>
+        <div><div class="persona-section-title">Why critical for sessions</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Sharon surfaces the operational pain; Pat decides what the business is willing to do about it. You need both in the financial session — Sharon to confirm the problem, Pat to confirm the appetite for change.</div></div>
+      </div>
+
+      <!-- DAWN -->
       <div class="persona-card" style="border-top:3px solid var(--c-ae);">
-        <div class="persona-header"><div class="persona-avatar" style="background:var(--indigo-50);">🗂️</div><div class="persona-meta"><div class="persona-name">Account Executive (AE)</div><div class="persona-role">Client relationship owner, case intake lead</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
-        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-ae)">~25</div><div class="persona-stat-lbl">Users</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-ae)">Daily</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--error)">High</div><div class="persona-stat-lbl">Pain level</div></div></div>
-        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Receives new case inquiries (phone, email, fax). Validates case info, chases missing data. Generates and tracks DRA signatures. Sets diary notes and follow-up reminders. Manages client communication throughout the case lifecycle.</div></div>
-        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">Unstructured intake emails</span><span class="tag pain">Manual data entry</span><span class="tag pain">Overwhelming diary volume</span><span class="tag pain">Manual client status reports (Excel)</span><span class="tag pain">Single AE assignment per case</span></div></div>
-        <div><div class="persona-section-title">What they need</div><div class="tag-list"><span class="tag need">Automated intake parsing</span><span class="tag need">Smart diary filtering</span><span class="tag need">Auto-generated status reports</span><span class="tag need">DocuSign reminders</span></div></div>
+        <div class="persona-header"><div class="persona-avatar" style="background:var(--indigo-50);">🗂️</div><div class="persona-meta"><div class="persona-name">PI Account Executive / Team Lead</div><div class="persona-role">Manages high-volume PI case pipeline and AE team — intake, client relationships, commercial reporting</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Dawn <span style="color:var(--ink-4);font-size:10px;">(2023 sessions · May 4 discovery)</span> · Supervisor Client Services <span style="color:var(--ink-4);font-size:10px;">(Day-in-the-Life, 10 recordings)</span> · Account Executive <span style="color:var(--ink-4);font-size:10px;">(Day-in-the-Life)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-ae)">Daily</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--error)">High</div><div class="persona-stat-lbl">Pain level</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-ae)">Med-High</div><div class="persona-stat-lbl">Confidence</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Manages AEs and commercial operations. Surfaces in commercial-workflow discussions ("go to your waiting queue, dig deep because we're closing the quarter"). Holds firms under her name as an AE but is not on the standard commission program — used as the example of why the system must support AE-without-commission scenarios. Often joins remotely.</div></div>
+        <div><div class="persona-section-title">Drives these requirements</div><div class="tag-list"><span class="tag need">Commercial reporting (account submissions, AE billing summaries)</span><span class="tag need">AE-without-commission scenarios</span><span class="tag need">Real-time commission visibility</span><span class="tag need">Quarter-close queue management</span></div></div>
+        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">No usable client status report</span><span class="tag pain">Manual Excel status tracking</span><span class="tag pain">Overwhelming diary volume</span></div></div>
         <div class="quote">"We are not able to pull any kind of a decent status report for our clients. We're doing it manually through Excel."</div>
       </div>
 
-      <div class="persona-card" style="border-top:3px solid var(--c-cm);">
-        <div class="persona-header"><div class="persona-avatar" style="background:#E0F2FE;">⚙️</div><div class="persona-meta"><div class="persona-name">Case Manager</div><div class="persona-role">Operational backbone — case processing & workflow</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
-        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-cm)">~30</div><div class="persona-stat-lbl">Users</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-cm)">Daily</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--error)">High</div><div class="persona-stat-lbl">Pain level</div></div></div>
-        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Manages ~3,000 active cases at any time. Tracks case status, coordinates between parties, manages documents, runs conflict checks, triggers workflow steps. Heavily dependent on the notes/diary system for internal coordination.</div></div>
-        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">No configurable case status visibility</span><span class="tag pain">Manual tracking of continued cases</span><span class="tag pain">Notes scattered across screens</span><span class="tag pain">Pre-hearing conferences not in system</span></div></div>
-        <div><div class="persona-section-title">What they need</div><div class="tag-list"><span class="tag need">Colour-coded case queues</span><span class="tag need">Automated continued case handling</span><span class="tag need">Unified chronological notes</span><span class="tag need">Bulk case operations</span></div></div>
-        <div class="quote">"If I notice something on a case, I'll send a note and anyone relevant to the case can put it right in the notes."</div>
-      </div>
-
+      <!-- SCHEDULER (role) -->
       <div class="persona-card" style="border-top:3px solid var(--c-sched);">
-        <div class="persona-header"><div class="persona-avatar" style="background:#F3E8FF;">📅</div><div class="persona-meta"><div class="persona-name">Scheduler</div><div class="persona-role">Hearing coordination, neutral & calendar management</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div class="persona-header"><div class="persona-avatar" style="background:#F3E8FF;">📅</div><div class="persona-meta"><div class="persona-name">Scheduler</div><div class="persona-role">Hearing coordination, neutral & calendar management</div><span class="persona-type-badge badge-internal">Internal · NAM · Role (name TBC)</span></div></div>
         <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-sched)">~8</div><div class="persona-stat-lbl">Users</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-sched)">Daily</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">Med-High</div><div class="persona-stat-lbl">Pain level</div></div></div>
-        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Coordinates hearing dates with parties and neutrals. Generates Zoom links. Manages pre-hearing conferences and adjournments. Handles mass hearing days (one neutral, many cases). Tracks billable vs. non-billable scheduling activity.</div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Coordinates hearing dates with parties and neutrals. Generates Zoom links. Manages pre-hearing conferences and adjournments. Handles mass hearing days (one neutral, many cases). Tracks billable vs. non-billable scheduling activity. Named individuals in transcripts include Roy, Diroda — confirm current scheduler with NAM.</div></div>
         <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">No integrated calendar/Zoom workflow</span><span class="tag pain">Pre-hearings not recorded in system</span><span class="tag pain">Mass hearing batching is manual</span><span class="tag pain">Adjournment tracking is error-prone</span></div></div>
         <div><div class="persona-section-title">What they need</div><div class="tag-list"><span class="tag need">Zoom auto-generation</span><span class="tag need">Pre-hearing recording</span><span class="tag need">Batch hearing management</span><span class="tag need">Billable/non-billable flagging</span></div></div>
         <div class="quote">"Any hearing or pre-hearing should be on there — that's what the scheduler is there for."</div>
       </div>
 
-      <div class="persona-card" style="border-top:3px solid var(--c-fin);">
-        <div class="persona-header"><div class="persona-avatar" style="background:var(--error-bg);">💰</div><div class="persona-meta"><div class="persona-name">Finance & Billing Staff</div><div class="persona-role">Invoicing, payments, neutral compensation, reconciliation</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
-        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-fin)">~5</div><div class="persona-stat-lbl">Users</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-fin)">Weekly</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--error)">Critical</div><div class="persona-stat-lbl">Pain level</div></div></div>
-        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Generates invoices and processes client payments. Manages neutral compensation. Runs month-end reconciliation across 3+ reports manually. Handles deferred revenue, accruals, and overpayments. Tracks batch hearing billing across multiple cases.</div></div>
-        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">Batch hearing billing inaccuracy (2.90)</span><span class="tag pain">Manual 3-report reconciliation</span><span class="tag pain">Overpayment / credit application</span><span class="tag pain">Journal entry errors</span><span class="tag pain">Revenue tracking on closed cases</span></div></div>
-        <div><div class="persona-section-title">What they need</div><div class="tag-list"><span class="tag need">Automated reconciliation</span><span class="tag need">Proportionate hearing time allocation</span><span class="tag need">Accrued revenue report</span><span class="tag need">Mass cash application</span></div></div>
-        <div class="quote">"We compare hearing counts, non-closed cases, and continued cases manually before processing neutrals."</div>
+      <!-- SCHEDULING COORDINATOR -->
+      <div class="persona-card" style="border-top:3px solid var(--c-sched);">
+        <div class="persona-header"><div class="persona-avatar" style="background:#F3E8FF;">📅</div><div class="persona-meta"><div class="persona-name">Scheduling Coordinator</div><div class="persona-role">Hearing coordination, judge calendars, confirmations</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Sr Scheduling Coordinator, Scheduling Coordinator <span style="color:var(--ink-4);font-size:10px;">(Day-in-the-Life · 14 recordings · 1h 38m)</span> — Crystena, Tracy <span style="color:var(--ink-4);font-size:10px;">(named in recordings)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-sched)">14</div><div class="persona-stat-lbl">Recordings</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-sched)">1h 38m</div><div class="persona-stat-lbl">Observed</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">High</div><div class="persona-stat-lbl">Pain level</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Coordinates hearing scheduling, confirms dates with all parties and neutrals, enters judge availability (25+ dates per judge per month across 5-8 judges per coordinator), places calendar holds across Outlook/Google Calendar/NAM/myADR, generates and sends Zoom links, sends confirmations one party at a time for 10-15 party cases.</div></div>
+        <div><div class="persona-section-title">Tools used (all in one workflow)</div><div class="tag-list"><span class="tag pain">NAM CMS</span><span class="tag pain">Outlook</span><span class="tag pain">Google Calendar</span><span class="tag pain">Microsoft Bookings</span><span class="tag pain">myADR</span><span class="tag pain">Zoom</span></div></div>
+        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">Send confirmations 1 party at a time</span><span class="tag pain">Enter judge availability 1 date at a time</span><span class="tag pain">3-hold-per-mediator cap forces extra rounds</span><span class="tag pain">No day-of-week or restriction visibility in grid</span><span class="tag pain">4 calendar tools with unclear boundaries</span></div></div>
+        <div><div class="persona-section-title">What they need</div><div class="tag-list"><span class="tag need">Bulk send all confirmations</span><span class="tag need">Date-range availability entry</span><span class="tag need">Day-of-week shown in scheduling grid</span><span class="tag need">Single calendar surface</span><span class="tag need">Zoom auto-generation</span></div></div>
+        <div class="quote">"Crystena and Tracy explicitly request a bulk 'send all confirmations' action for 10-15 party cases." — Day-in-the-Life report</div>
       </div>
 
+      <!-- NEUTRAL RECRUITER -->
+      <div class="persona-card" style="border-top:3px solid #7C3AED;">
+        <div class="persona-header"><div class="persona-avatar" style="background:#F3E8FF;">🎯</div><div class="persona-meta"><div class="persona-name">Neutral Recruiter</div><div class="persona-role">Marketing / neutral identification, vetting & onboarding</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);">Neutral Recruiter <span style="color:var(--ink-4);font-size:10px;">(Day-in-the-Life · 4 recordings · 22m)</span></div>
+        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:#7C3AED">4</div><div class="persona-stat-lbl">Recordings</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:#7C3AED">22m</div><div class="persona-stat-lbl">Observed</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">Medium</div><div class="persona-stat-lbl">Pain level</div></div></div>
+        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Identifies, conflict-checks, vets, and onboards new hearing officers and mediators. Searches Judges Directory, Clients, Counsels, and Firms for conflicts — separately. Manually transcribes structured questionnaire data into profile fields, rate notes, licensing details, documents, and practice areas. Manages bifurcated rates and PI roster caps from free-text notes and memory.</div></div>
+        <div><div class="persona-section-title">Key pain points</div><div class="tag-list"><span class="tag pain">Conflict check = 4 separate searches</span><span class="tag pain">Multi-state neutrals = duplicate profile records</span><span class="tag pain">Rates & caps live in free-text notes</span><span class="tag pain">Bar licence verified manually against external sites</span><span class="tag pain">Questionnaire transcribed field by field</span><span class="tag pain">Deactivated profiles visible in search</span></div></div>
+        <div><div class="persona-section-title">What they need</div><div class="tag-list"><span class="tag need">Unified conflict check across all entities</span><span class="tag need">Structured questionnaire import</span><span class="tag need">Structured bifurcated rates</span><span class="tag need">Multi-state licensing without duplicate records</span><span class="tag need">Bar website integration</span></div></div>
+      </div>
+
+      <!-- EXTERNAL CLIENT -->
       <div class="persona-card" style="border-top:3px solid var(--c-client);">
         <div class="persona-header"><div class="persona-avatar" style="background:var(--warn-bg);">🏢</div><div class="persona-meta"><div class="persona-name">External Client / Claimant</div><div class="persona-role">Law firms, insurance carriers, corporate legal teams</div><span class="persona-type-badge badge-external">External</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink-4);font-style:italic;">Not yet interviewed directly — represented through NAM stakeholder descriptions</div>
         <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-client)">~2,000</div><div class="persona-stat-lbl">Users</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-client)">Per case</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">Medium</div><div class="persona-stat-lbl">Pain level</div></div></div>
         <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Submits cases (individually or bulk/mass filing). Uploads documents, proof of service, contracts. Signs DRA via DocuSign. Tracks case status. Pays invoices. Selects neutrals (commercial). Receives decisions and awards.</div></div>
         <div><div class="persona-section-title">Two distinct sub-types</div><div class="tag-list"><span class="tag" style="background:#FFF7ED;color:#C2410C;">Mass filer (insurers, carriers)</span><span class="tag" style="background:#FFF7ED;color:#C2410C;">Individual claimant / law firm</span></div></div>
@@ -527,19 +621,15 @@
         <div class="quote">"Profile creation for case submission without full login — clients prefer creating a profile to submit."</div>
       </div>
 
+      <!-- NEUTRAL -->
       <div class="persona-card" style="border-top:3px solid var(--c-neutral);">
-        <div class="persona-header"><div class="persona-avatar" style="background:var(--success-bg);">⚖️</div><div class="persona-meta"><div class="persona-name">Neutral (Arbitrator / Mediator)</div><div class="persona-role">Independent professional conducting hearings</div><span class="persona-type-badge badge-neutral-actor">Neutral Actor</span></div></div>
+        <div class="persona-header"><div class="persona-avatar" style="background:var(--success-bg);">⚖️</div><div class="persona-meta"><div class="persona-name">Neutral (Arbitrator / Mediator)</div><div class="persona-role">Independent professional conducting hearings and submitting decisions</div><span class="persona-type-badge badge-neutral-actor">Neutral Actor</span></div></div>
+        <div style="font-size:10px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Spoke to</div>
+        <div style="font-size:11px;color:var(--ink-2);background:var(--paper);padding:5px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink-4);font-style:italic;">Not yet interviewed directly — represented through Neutrals Portal usage and NAM scheduler descriptions</div>
         <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-neutral)">Roster</div><div class="persona-stat-lbl">Size</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-neutral)">Per case</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">Medium</div><div class="persona-stat-lbl">Pain level</div></div></div>
         <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Reviews conflict disclosures, accepts appointment. Sets availability. Receives case documents. Conducts hearings (Zoom or in-person). Submits decisions and timesheets. Receives monthly payment statement.</div></div>
         <div><div class="persona-section-title">Key needs</div><div class="tag-list"><span class="tag need">Portal stability (pain 0.87)</span><span class="tag need">Document access & submission</span><span class="tag need">Clear timesheet & payment tracking</span><span class="tag need">Availability management</span></div></div>
-        <div style="font-size:11px;color:var(--ink-3);line-height:1.5;background:var(--success-bg);padding:8px 10px;border-radius:6px;">✅ Neutrals Portal 2.0 already built & in production. CMS 2.0 needs to <strong>integrate</strong>, not rebuild.</div>
-      </div>
-
-      <div class="persona-card" style="border-top:3px solid var(--c-mgmt);">
-        <div class="persona-header"><div class="persona-avatar" style="background:#F3F4F6;">👔</div><div class="persona-meta"><div class="persona-name">Management & Admin</div><div class="persona-role">Oversight, reporting, access control, config</div><span class="persona-type-badge badge-internal">Internal · NAM</span></div></div>
-        <div class="persona-stat-row"><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-mgmt)">~7</div><div class="persona-stat-lbl">Users</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--c-mgmt)">Weekly</div><div class="persona-stat-lbl">Frequency</div></div><div class="persona-stat"><div class="persona-stat-val" style="color:var(--warn)">Medium</div><div class="persona-stat-lbl">Pain level</div></div></div>
-        <div><div class="persona-section-title">What they do</div><div style="font-size:11px;color:var(--ink-3);margin-top:6px;line-height:1.6;">Configures system rules, access controls, and custom stipulations. Runs operational and financial oversight reports. Manages rate structures and commission programs. Approves exceptions. Reviews audit trails and user accounts.</div></div>
-        <div><div class="persona-section-title">Key needs</div><div class="tag-list"><span class="tag need">Role-based access matrix (2.37)</span><span class="tag need">Self-service reporting (1.38)</span><span class="tag need">Configurable screens (no-code)</span><span class="tag need">Audit trail visibility</span></div></div>
+        <div style="font-size:11px;color:var(--ink-3);line-height:1.5;background:var(--success-bg);padding:8px 10px;border-radius:6px;">✅ Neutrals Portal 2.0 already built & in production. NAM's proof point that good UX is achievable. CMS 2.0 needs to <strong>integrate</strong>, not rebuild.</div>
       </div>
 
     </div>
@@ -551,245 +641,218 @@
 ══════════════════════════════════════ -->
 <div class="tab-panel" id="tab-matrix">
   <div class="inner-pad">
-    <div class="section-eyebrow">How each persona intersects with the 7 journey phases</div>
+    <div class="section-eyebrow">How each role intersects with the 7 case lifecycle phases — includes tools, pain points, and where work escapes the system</div>
+
+    <div style="background:var(--indigo-50);border:1px solid var(--indigo-200);border-radius:8px;padding:10px 14px;margin-bottom:20px;font-size:11px;color:var(--ink-2);line-height:1.6;">
+      Phases now reflect the correct case lifecycle. Document management is a cross-cutting capability shown in the Blueprint tab — it is active across all phases, not a discrete step. Phase 5 is <strong>Hearing & Outcome</strong> — the actual hearing day, decision, and PMA — which was previously missing.
+    </div>
+
     <div class="matrix-wrapper">
     <table class="matrix">
       <thead>
         <tr>
-          <th style="min-width:160px;">Persona</th>
-          <th>Phase 1<br>Case Intake</th>
-          <th>Phase 2<br>Case Setup & DRA</th>
-          <th>Phase 3<br>Neutral Selection</th>
-          <th>Phase 4<br>Scheduling & Hearings</th>
-          <th>Phase 5<br>Document Management</th>
-          <th>Phase 6<br>Financial Processing</th>
-          <th>Phase 7<br>Reporting & Close</th>
+          <th style="min-width:180px;">Role</th>
+          <th>Phase 1<br><span style="font-weight:400;opacity:0.8;">Case Intake</span></th>
+          <th>Phase 2<br><span style="font-weight:400;opacity:0.8;">Case Setup & DRA</span></th>
+          <th>Phase 3<br><span style="font-weight:400;opacity:0.8;">Neutral Selection</span></th>
+          <th>Phase 4<br><span style="font-weight:400;opacity:0.8;">Scheduling</span></th>
+          <th>Phase 5<br><span style="font-weight:400;opacity:0.8;">Hearing & Outcome</span></th>
+          <th>Phase 6<br><span style="font-weight:400;opacity:0.8;">Financial Processing</span></th>
+          <th>Phase 7<br><span style="font-weight:400;opacity:0.8;">Reporting & Close</span></th>
         </tr>
       </thead>
       <tbody>
+
+        <!-- SENIOR BUSINESS OWNER -->
         <tr>
-          <td>🗂️ Account Executive</td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary + biggest pain</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Primary</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Secondary</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Notified</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Sends docs</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">Peripheral</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Client reports</div></div></td>
+          <td>
+            <div style="font-weight:600;font-size:11px;">🎯 Senior Business Owner</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Jason</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Sets principles</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Rate decisions</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Commissions policy</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Final decisions · board reporting</div></div></td>
         </tr>
+
+        <!-- IT / TECHNICAL DIRECTOR -->
+        <tr style="background:var(--paper);">
+          <td>
+            <div style="font-weight:600;font-size:11px;">💻 IT / Technical Director</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Mike · Shaun (CTO)</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Legacy system runs in parallel</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Data sync architecture</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Scheduling system ownership</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Acumatica integration</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Migration completion · decommission</div></div></td>
+        </tr>
+
+        <!-- COMMERCIAL CASE MANAGER -->
         <tr>
-          <td>⚙️ Case Manager</td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Primary</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary + pain</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Primary</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary + pain</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Primary</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Secondary</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Case close</div></div></td>
+          <td>
+            <div style="font-weight:600;font-size:11px;">⚙️ Commercial Case Manager</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Jackie Strafasio · Jackie Selvi · Case Manager (DitL)</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · no digital intake · all manual</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · status blocks invoice creation</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · roster built in Word externally</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Hands to scheduling dept</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Sends decision · processes PMA</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Invoice manually "elbowed in" — no trigger</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">No self-service reports · waits on CEO/CFO</div></div></td>
         </tr>
+
+        <!-- PI ACCOUNT EXECUTIVE / TEAM LEAD -->
+        <tr style="background:var(--paper);">
+          <td>
+            <div style="font-weight:600;font-size:11px;">🗂️ PI Account Executive / Team Lead</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Dawn · Supervisor Client Services · AE (DitL)</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · phone/email · portal partially populates</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Chases signatures · marks SIGNED → scheduling</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">PI: parties agree on neutral by consent</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Monitors scheduling dept status</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Notified of outcome · updates parties</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Status-triggered invoicing (PI)</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Manual Excel status reports for clients</div></div></td>
+        </tr>
+
+        <!-- SCHEDULING COORDINATOR -->
         <tr>
-          <td>📅 Scheduler</td>
+          <td>
+            <div style="font-weight:600;font-size:11px;">📅 Scheduling Coordinator</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Sr Scheduling Coordinator · Scheduling Coordinator (DitL)</div>
+          </td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Coordinates</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary + critical pain</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Prehearing docs</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Billable flag</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Manages neutral availability in system</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · 4 tools · confirmations 1-at-a-time · 25+ date entries/judge</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Confirms hearing day logistics</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Billable/non-billable flag triggers invoice</div></div></td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
         </tr>
+
+        <!-- NEUTRAL RECRUITER -->
+        <tr style="background:var(--paper);">
+          <td>
+            <div style="font-weight:600;font-size:11px;">🎯 Neutral Recruiter</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Neutral Recruiter (DitL · 4 recordings)</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · 4-search conflict check · manual questionnaire transcription</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Neutral roster & rate maintenance</div></div></td>
+        </tr>
+
+        <!-- FINANCE OPERATIONS -->
         <tr>
-          <td>💰 Finance & Billing</td>
+          <td>
+            <div style="font-weight:600;font-size:11px;">💰 Finance Operations</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Sharon · Revenue Ops Manager (DitL)</div>
+          </td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Fee setup</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Rate config</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Billing flags</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary + CRITICAL pain</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Primary</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Sets up firms & clients · manual data entry</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Rate configuration per neutral</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Billable flag received from scheduling</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Revenue recognition triggered on hearing date</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · 5-6 invoice reviews · 20-invoice eBilling cap · manual reconciliation</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Month-end close · neutral payables · Acumatica export</div></div></td>
         </tr>
+
+        <!-- FINANCE LEADERSHIP / CFO -->
+        <tr style="background:var(--paper);">
+          <td>
+            <div style="font-weight:600;font-size:11px;">📊 Finance Leadership / CFO</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Spoke to: Pat · Scott (CFO) · Director of Accounting (DitL)</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Rate & commission policy approval</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary · sets what finance will & won't change · 100% manual collections</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Board reporting · revenue recognition · ERP integration ownership</div></div></td>
+        </tr>
+
+        <!-- EXTERNAL CLIENT -->
         <tr>
-          <td>🏢 External Client</td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Primary + entry point</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Signs DRA</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Commercial only</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Attends hearing</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Uploads & receives</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Pays invoices</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-gain">●</div><div class="inv-label">Receives outcome</div></div></td>
+          <td>
+            <div style="font-weight:600;font-size:11px;">🏢 External Client / Claimant</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Not yet interviewed directly</div>
+          </td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-pain">●</div><div class="inv-label">Entry point · phone/email/fax · portal rarely used</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Signs DRA · pays filing fee</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Commercial: selects neutral from roster</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Confirms date · attends pre-hearing conference</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Attends hearing · receives decision/award</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Pays invoices · receives statements</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-gain">●</div><div class="inv-label">Case closed · outcome received</div></div></td>
         </tr>
-        <tr>
-          <td>⚖️ Neutral</td>
+
+        <!-- NEUTRAL -->
+        <tr style="background:var(--paper);">
+          <td>
+            <div style="font-weight:600;font-size:11px;">⚖️ Neutral (Arbitrator / Mediator)</div>
+            <div style="font-size:9px;color:var(--ink-4);margin-top:2px;">Not yet interviewed directly</div>
+          </td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Accepts/discloses</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Conducts hearing</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Submits decision</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Receives payment</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Reviews conflict disclosure · accepts appointment</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Sets availability · reviews pre-hearing materials</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Conducts hearing · renders decision · signs PMA</div></div></td>
+          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Submits timesheet · receives payment at month-end</div></div></td>
           <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
         </tr>
-        <tr>
-          <td>👔 Management</td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Config & oversight</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Access rules</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Rate approval</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">Exceptions only</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-none">○</div><div class="inv-label">—</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-secondary">●</div><div class="inv-label">Approves exceptions</div></div></td>
-          <td><div class="matrix-cell"><div class="involvement-dot inv-primary">●</div><div class="inv-label">Oversight reports</div></div></td>
-        </tr>
+
       </tbody>
     </table>
     </div>
-    <div class="matrix-legend">
-      <div class="ml-item"><div class="involvement-dot inv-pain" style="width:20px;height:20px;font-size:9px;">●</div> Primary actor with significant pain</div>
+
+    <!-- Legend -->
+    <div class="matrix-legend" style="margin-top:20px;">
+      <div class="ml-item"><div class="involvement-dot inv-pain" style="width:20px;height:20px;font-size:9px;">●</div> Primary actor with significant pain / friction</div>
       <div class="ml-item"><div class="involvement-dot inv-primary" style="width:20px;height:20px;font-size:9px;">●</div> Primary actor</div>
       <div class="ml-item"><div class="involvement-dot inv-secondary" style="width:20px;height:20px;font-size:9px;">●</div> Secondary involvement</div>
       <div class="ml-item"><div class="involvement-dot inv-gain" style="width:20px;height:20px;font-size:9px;">●</div> Gain / outcome moment</div>
       <div class="ml-item"><div class="involvement-dot inv-none" style="width:20px;height:20px;font-size:9px;">○</div> Not involved</div>
     </div>
-  </div>
-</div>
 
-<!-- ══════════════════════════════════════
-     TAB 4 — PRIORITY RECOMMENDATIONS
-══════════════════════════════════════ -->
-<div class="tab-panel" id="tab-priority">
-  <div class="inner-pad">
-    <div class="section-eyebrow">Ranked by value to NAM — user impact × pain severity × revenue consequence</div>
-
-    <div class="priority-section">
-      <div class="priority-title"><div class="priority-badge p1">1</div>Build first — highest combined user impact and operational pain</div>
-      <div class="priority-cards">
-        <div class="priority-card" style="border-left:3px solid var(--error);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:var(--indigo-50);">🗂️⚙️</div><div><div class="pcard-name">Core Case Lifecycle — AE + Case Manager</div><div class="pcard-phase">Phases 1, 2, 5 · Internal CMS</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Users affected</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:70%;background:var(--error);"></div></div><span class="pcard-metric-val">~55</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Pain severity</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:90%;background:var(--error);"></div></div><span class="pcard-metric-val">High</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Frequency</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:100%;background:var(--indigo);"></div></div><span class="pcard-metric-val">Daily</span></div>
-          <div class="pcard-rationale">Intake → DRA → status tracking → diary/notes → document management. This is what 55 internal users touch every single day across 3,000 active cases. Getting this right eliminates the largest source of manual effort. The previous vendor failed here because they tried to build everything at once rather than nailing the core loop.</div>
-          <div class="pcard-outcome">✓ Enables: NAM staff to run real cases end-to-end in the new system from day one</div>
-        </div>
-        <div class="priority-card" style="border-left:3px solid var(--error);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:#E0F2FE;">📅</div><div><div class="pcard-name">Scheduling & Pre-Hearing Workflow — Scheduler</div><div class="pcard-phase">Phase 4 · Internal CMS + Zoom</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Need score</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:65%;background:var(--indigo);"></div></div><span class="pcard-metric-val">1.55</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Pain severity</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:80%;background:var(--error);"></div></div><span class="pcard-metric-val">High</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Revenue risk</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:75%;background:var(--error);"></div></div><span class="pcard-metric-val">High</span></div>
-          <div class="pcard-rationale">Scheduling is the single most connected phase — it touches every actor and directly gates revenue (no hearing = no billing). Pre-hearing conferences are currently entirely unrecorded. Zoom, calendar, and scheduling are three separate manual processes today. The highest-scored need in the dataset.</div>
-          <div class="pcard-outcome">✓ Enables: Accurate hearing records → accurate billing → accurate neutral payment</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="priority-section">
-      <div class="priority-title"><div class="priority-badge p2">2</div>Build second — critical revenue impact, enables NAM's growth strategy</div>
-      <div class="priority-cards">
-        <div class="priority-card" style="border-left:3px solid var(--warn);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:var(--error-bg);">💰</div><div><div class="pcard-name">Financial Processing & Reconciliation — Finance</div><div class="pcard-phase">Phase 6 · Internal CMS + Acumatica</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Top pain score</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:100%;background:var(--error);"></div></div><span class="pcard-metric-val">2.90</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Revenue risk</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:95%;background:var(--error);"></div></div><span class="pcard-metric-val">Critical</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Users affected</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:15%;background:var(--warn);"></div></div><span class="pcard-metric-val">~5</span></div>
-          <div class="pcard-rationale">Highest pain score in the entire dataset (2.90). Batch hearing billing inaccuracy, manual 3-report reconciliation, and closed case revenue gaps directly cost NAM money. Complex to build correctly — depends on scheduling being right first. The data model (1 hearing → N cases) is the key architectural decision to validate in discovery.</div>
-          <div class="pcard-outcome">✓ Enables: Accurate neutral payments, automated month-end, mass filing economics</div>
-        </div>
-        <div class="priority-card" style="border-left:3px solid var(--warn);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:var(--warn-bg);">🏢</div><div><div class="pcard-name">Mass Filing Intake — External Client (Mass Filer)</div><div class="pcard-phase">Phase 1 · Client Portal</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Need score</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:45%;background:var(--indigo);"></div></div><span class="pcard-metric-val">1.13</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Growth impact</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:95%;background:var(--success);"></div></div><span class="pcard-metric-val">Critical</span></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Strategic fit</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:90%;background:var(--success);"></div></div><span class="pcard-metric-val">High</span></div>
-          <div class="pcard-rationale">Mass filing is NAM's primary growth driver — it's why the ColdFusion system is hitting its limit. Bulk upload with validation, human review gates, and automated fee collection unlocks NAM's ability to onboard large enterprise clients (insurance carriers, large law firms). This is what Shaun is most excited about.</div>
-          <div class="pcard-outcome">✓ Enables: NAM to scale to new enterprise clients without adding headcount</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="priority-section">
-      <div class="priority-title"><div class="priority-badge p3">3</div>Build later — important but depends on foundations being right first</div>
-      <div class="priority-cards">
-        <div class="priority-card" style="border-left:3px solid var(--indigo);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:#F3F4F6;">👔</div><div><div class="pcard-name">Reporting & Analytics — Management</div><div class="pcard-phase">Phase 7 · Internal CMS</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Need score</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:58%;background:var(--indigo);"></div></div><span class="pcard-metric-val">1.38</span></div>
-          <div class="pcard-rationale">Self-service reporting is critical but only as good as the data feeding it. Getting the case lifecycle, scheduling, and financial data right first means the reporting layer delivers genuine insight rather than surfacing bad data in a new format.</div>
-          <div class="pcard-outcome">✓ Enables: Client status reports, operational dashboards, financial oversight</div>
-        </div>
-        <div class="priority-card" style="border-left:3px solid var(--indigo);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:var(--success-bg);">⚖️</div><div><div class="pcard-name">Neutrals Portal Integration — Neutral</div><div class="pcard-phase">Phases 3–6 · Integration layer</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Integration scope</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:40%;background:var(--indigo);"></div></div><span class="pcard-metric-val">Medium</span></div>
-          <div class="pcard-rationale">Neutrals Portal 2.0 already exists in production. This is an integration task — case sync, document exchange, payment statements — not a rebuild. Priority is lower because neutrals are well-served today. The real risk is making sure CMS 2.0 doesn't break what already works.</div>
-          <div class="pcard-outcome">✓ Enables: Unified data model, eventual tech stack consolidation</div>
-        </div>
-        <div class="priority-card" style="border-left:3px solid var(--indigo);">
-          <div class="pcard-header"><div class="pcard-avatar" style="background:var(--warn-bg);">🏢</div><div><div class="pcard-name">Individual Client Portal — External Client</div><div class="pcard-phase">Phases 1, 2, 4, 5, 6</div></div></div>
-          <div class="pcard-metric"><span class="pcard-metric-lbl">Users affected</span><div class="pcard-metric-bar"><div class="pcard-metric-fill" style="width:80%;background:var(--warn);"></div></div><span class="pcard-metric-val">~2,000</span></div>
-          <div class="pcard-rationale">Large user base but low frequency per user. Internal team can continue handling intake via phone/email/fax during MVP phase. Mass filer portal (P2) is more strategically urgent. The full self-service portal reduces AE burden significantly but isn't required for NAM to start running cases through the new system.</div>
-          <div class="pcard-outcome">✓ Enables: Self-service intake, reduced AE manual workload, 24/7 case submission</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom line -->
-    <div style="background:var(--indigo-900);border-radius:12px;padding:24px;">
-      <div style="font-size:12px;font-weight:600;color:var(--indigo-200);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;">Bottom Line — What to focus on in next week's sessions</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
-        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:16px;"><div style="font-size:12px;font-weight:600;color:white;margin-bottom:8px;">Session 1 — Current state</div><div style="font-size:11px;color:rgba(255,255,255,0.65);line-height:1.6;">Ask the AE and Case Manager: what does a bad day look like? How do you know a case is stuck? Walk us through a real case from intake to close. These two personas are your MVP anchor.</div></div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:16px;"><div style="font-size:12px;font-weight:600;color:white;margin-bottom:8px;">Session 2 — Future state</div><div style="font-size:11px;color:rgba(255,255,255,0.65);line-height:1.6;">Ask Finance: if we got batch hearing billing right first, how much time would that save per month? Ask Shaun: what does a successful mass filing for a new enterprise client look like today? That's the growth scenario to design for.</div></div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:16px;"><div style="font-size:12px;font-weight:600;color:white;margin-bottom:8px;">MVP in one sentence</div><div style="font-size:11px;color:rgba(255,255,255,0.65);line-height:1.6;">A case manager can take a PI case from intake to close — without touching myADR — and the finance team can process month-end without a manual reconciliation spreadsheet.</div></div>
+    <!-- Work escapes system note -->
+    <div style="margin-top:24px;background:var(--error-bg);border:1px solid var(--error);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:11px;font-weight:600;color:var(--error);margin-bottom:8px;">⚠️ Where work escapes the system (Cross-Cutting Theme T1, T2)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 1:</strong> Intake via Outlook/Gmail — case numbers copied manually into CMS. Commercial: no portal at all.</div>
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 2:</strong> DRA correspondence generated in Word outside system. Signed agreements forwarded for manual scanning.</div>
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 3:</strong> Neutral rosters built in Word. Conflict checks across 4 separate system searches. Bios hunted from OneDrive.</div>
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 4:</strong> Confirmations sent via Outlook 1-at-a-time. Calendar holds duplicated across Outlook + Google + NAM + myADR.</div>
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 5:</strong> Decision documents emailed externally (security risk flagged by Mike in session).</div>
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 6:</strong> Invoice review in Excel. Reconciliation across 3+ reports. Cash app manual. Collections 100% manual.</div>
+        <div style="font-size:10px;color:var(--ink-2);line-height:1.5;"><strong>Phase 7:</strong> Client status reports built in Excel. No self-service — IT runs queries for most meaningful reports.</div>
       </div>
     </div>
 
   </div>
 </div>
+
+
 
 <div class="app-footer">
   <span>Symphony © 2026 · NAM CMS 2.0 Discovery Pack · Based on TheyDo export, CMS 2 capability doc, requirements workshop transcripts (37 sessions), storyboards, and Slack</span>
 </div>
 
-</div><!-- #site-root -->
-
 <script>
-(function () {
-  /* Change password: replace SHA-256 hex of your new passphrase (echo -n 'YourPass' | shasum -a 256) */
-  var PASSWORD_HASH_HEX = 'c5e52e9a59c873f994a695e2105d66c9fc41c7ce623aaa755db69685edff4118';
-  var STORAGE_KEY = 'nam_discovery_auth_v1';
-
-  function sha256Hex(text) {
-    var buf = new TextEncoder().encode(text);
-    return crypto.subtle.digest('SHA-256', buf).then(function (hash) {
-      return Array.from(new Uint8Array(hash)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
-    });
-  }
-
-  function revealSite() {
-    document.getElementById('auth-gate').hidden = true;
-    document.getElementById('site-root').hidden = false;
-    document.body.classList.remove('auth-pending');
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    if (sessionStorage.getItem(STORAGE_KEY) === '1') {
-      revealSite();
-      return;
-    }
-    var form = document.getElementById('auth-form');
-    var input = document.getElementById('auth-password');
-    var err = document.getElementById('auth-error');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      err.textContent = '';
-      sha256Hex(input.value).then(function (h) {
-        if (h === PASSWORD_HASH_HEX) {
-          sessionStorage.setItem(STORAGE_KEY, '1');
-          input.value = '';
-          revealSite();
-        } else {
-          err.textContent = 'Incorrect password.';
-        }
-      });
-    });
-  });
-})();
-
 function showTab(id, btn) {
-  document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
-  document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
 }
